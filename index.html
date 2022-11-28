@@ -4,6 +4,7 @@
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <!-- Bootstrap -->
         <link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet">
         <link rel="stylesheet" href="./assets/style.css">
         <title>Weather Dashboard</title>
@@ -12,30 +13,33 @@
         <header class="display-1 bg-primary text-white text-center p-2">
             <h1>Weather Dashboard</h1>
         </header>
+        <!-- Container for City Search Form and Search History -->
         <main class="container-fluid">
             <div class="row">
                 <div class="col-8 col-md-2 p-2 search-column">
-                    <form class="border p-2" id="city-search-form">
+                    <form class="p-2" id="city-search-form">
                         <h4>Find Current Weather</h4>
                         <input placeholder="Enter city name" id="city" type="text" autofocus="true" class="form-input"/>
                         <button class="btn btn-dark btn-sm" type="submit">Search</button>
                     </form>
                     <div class="search-history border" id="search-history-buttons"></div>
                 </div>
-            </div>
+                <!-- Current weather data for Current City shows up here  -->
             <div class="col-12 col-md-9">
                 <div class="row border current-city" id="current-forecast">
                     <div class="col-12">
-                        <h2 id="current-city"></h2>
+                        <h2 id="current-city p-2"></h2>
                         <div id="current-weather-container" class="list-group-flush p-3"></div>
                     </div>
                 </div>
+                <!-- Five-Day Forecast Container -->
                 <div class="row border" id="five-day-forecast">
                     <h2 class="col-12" id="forecast"></h2>
                     <div class="d-inline-flex flex-wrap m-4" id="fiveday-container"></div>
                 </div>
             </div>
         </main>
+        <!-- Script tags to source jQuery, Bootstrap, Moment, and script.js -->
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.3.1/js/bootstrap.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.27.0/moment.min.js"></script>

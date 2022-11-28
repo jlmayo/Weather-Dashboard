@@ -62,16 +62,20 @@ var showWeather = function(weather, searchCity){
     currentWeather.textContent = "";
     currentCity.textContent=searchCity;
 
+    var weatherImages = document.createElement("img");
+    weatherImages.setAttribute("src", `https://openweathermap.org/img/wn/${weather.weather[0].icon}@2x.png`);
+    currentCity.appendChild(weatherImages);
+
     var temperature = document.createElement("p");
-    temperature.textContent = "Temperature: ";
+    temperature.textContent = "Temperature: " + weather.main.temp + "ºF";
     temperature.classList = "list-group-item";
 
     var humidity = document.createElement("p");
-    humidity.textContent = "Humidity: ";
+    humidity.textContent = "Humidity: " + weather.main.humidity + " %";
     humidity.classList = "list-group-item";
 
     var windSpeed = document.createElement("p");
-    windSpeed.textContent = "Wind Speed: ";
+    windSpeed.textContent = "Wind Speed: " + weather.wind.speed + " MPH";
     windSpeed.classList = "list-group-item";
 }
 
@@ -91,6 +95,10 @@ var showFiveDay = function(weather){
     fiveDayForecast.textContent=""
     fiveDayForecastTitle.textContent = "Five-Day Forecast:";
 
+    var weatherImages = document.createElement("img");
+    weatherImages.classList = "card-body text-center";
+    weatherImages.setAttribute("src", `https://openweathermap.org/img/wn/${dailyForecast.weather[0].icon}@2x.png`);
+    
     var fiveDayData = document.createElement("div");
     fiveDayData.classList = "card bg-primary text-light m-4";
 
