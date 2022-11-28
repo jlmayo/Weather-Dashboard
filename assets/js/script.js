@@ -38,3 +38,20 @@ var searchHistory = function(searchHistory){
 
     searchHistoryButtons.prepend(searchHistory);
 }
+
+var showWeather = function(weather, searchCity){
+    currentWeather.textContent = "";
+    currentCity.textContent=searchCity;
+
+    var temperature = document.createElement("p");
+    temperature.textContent = "Temperature: ";
+    temperature.classList = "list-group-item";
+
+    var humidity = document.createElement("p");
+    humidity.textContent = "Humidity: ";
+    humidity.classList = "list-group-item";
+
+    var windSpeed = document.createElement("p");
+    windSpeed.textContent = "Wind Speed: ";
+    windSpeed.classList = "list-group-item";
+}
