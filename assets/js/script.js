@@ -24,28 +24,11 @@ var cityInputHandler = function(event){
     searchHistory(city);
 }
 
-var searchHistoryHandler = function(event){
-    var city = event.target.getAttribute("data-city")
-    if(city){
-        cityWeather(city);
-        fiveDay(city);
-    }
-}
 
 var saveSearchHistory = function() {
     localStorage.setItem("cities", JSON.stringify(cities));
 };
 
-var searchHistory = function(searchHistory){
-
-    searchHistoryList = document.createElement("button");
-    searchHistoryList.textContent = searchHistory;
-    searchHistoryList.classList = "btn btn-dar btn-lg btn-block p-2";
-    searchHistoryList.setAttribute("data-city", searchHistory);
-    searchHistoryList.setAttribute("type", "submit");
-
-    searchHistoryButtons.prepend(searchHistory);
-}
 
 var cityWeather = function(city){
     var apiKey = "7fd1431009ecf06b7da666445b0e111f"
@@ -62,6 +45,11 @@ var showWeather = function(weather, searchCity){
     currentWeather.textContent = "";
     currentCity.textContent=searchCity;
 
+    var currentDate = document.createElement("span")
+    currentDate.textContent=" (" + moment(weather.dt.value).format("dddd, MMM DD, YYYY, h:mm a") + ") ";
+    currentCity.appendChild(currentDate);
+    
+    
     var weatherImages = document.createElement("img");
     weatherImages.setAttribute("src", `https://openweathermap.org/img/wn/${weather.weather[0].icon}@2x.png`);
     currentCity.appendChild(weatherImages);
@@ -118,6 +106,7 @@ var showFiveDay = function(weather){
       weatherImages.classList = "card-body text-center";
       weatherImages.setAttribute("src", `https://openweathermap.org/img/wn/${dailyForecast.weather[0].icon}@2x.png`);
 
+      fiveDayData.appendChild(weatherImages);
 
       var fiveDayTemp = document.createElement("p")
       fiveDayTemp.classList = "card-text text-center";
@@ -137,9 +126,32 @@ var showFiveDay = function(weather){
 
       fiveDayData.appendChild(fiveDayWindSpeed);
 
+      dailyForecast.appendChild(fiveDayData);
+
     }
 
 }
+
+var searchHistory = function(searchHistory){
+
+    searchHistoryList = document.createElement("button");
+    searchHistoryList.textContent = searchHistory;
+    searchHistoryList.classList = "btn btn-dar btn-lg btn-block p-2";
+    searchHistoryList.setAttribute("data-city", searchHistory);
+    searchHistoryList.setAttribute("type", "submit");
+
+    searchHistoryButtons.prepend(searchHistory);
+}
+
+
+var searchHistoryHandler = function(event){
+    var city = event.target.getAttribute("data-city")
+    if(city){
+        cityWeather(city);
+        fiveDay(city);
+    }
+}
+
 
 citySearchForm.addEventListener("submit", cityInputHandler);
 searchHistoryButtons.addEventListener("click", searchHistoryHandler);
