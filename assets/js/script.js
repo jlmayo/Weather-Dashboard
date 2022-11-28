@@ -55,3 +55,23 @@ var showWeather = function(weather, searchCity){
     windSpeed.textContent = "Wind Speed: ";
     windSpeed.classList = "list-group-item";
 }
+
+var showFiveDay = function(weather){
+    fiveDayForecast.textContent=""
+    fiveDayForecastTitle.textContent = "Five-Day Forecast:";
+
+    var fiveDayData = document.createElement("div");
+    fiveDayData.classList = "card bg-primary text-light m-4";
+
+    var fiveDayTemp = document.createElement("p")
+    fiveDayTemp.classList = "card-text text-center";
+    fiveDayTemp.textContent = " ºF";
+
+    var fiveDayHumidity = document.createElement("p")
+    fiveDayHumidity.classList = "card-text text-center";
+    fiveDayHumidity.textContent = " %";
+
+    var fiveDayWindSpeed = document.createElement("p")
+    fiveDayWindSpeed.classList = "card-text text-center";
+    fiveDayWindSpeed.textContent = "Wind Speed: MPH";
+}
