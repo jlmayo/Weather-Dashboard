@@ -9,7 +9,7 @@ var fiveDayForecast=document.querySelector("#fiveday-container");
 var searchHistoryButtons=document.querySelector("#search-history-buttons");
 
 
-var formSubmitHandler = function(event){
+var cityInputHandler = function(event){
     event.preventDefault();
     var city = cityInput.ariaValueMax.trim();
     if(city){
@@ -22,6 +22,14 @@ var formSubmitHandler = function(event){
     }
     saveSearchHistory();
     searchHistory(city);
+}
+
+var searchHistoryHandler = function(event){
+    var city = event.target.getAttribute("data-city")
+    if(city){
+        cityWeather(city);
+        fiveDay(city);
+    }
 }
 
 var saveSearchHistory = function() {
@@ -75,3 +83,6 @@ var showFiveDay = function(weather){
     fiveDayWindSpeed.classList = "card-text text-center";
     fiveDayWindSpeed.textContent = "Wind Speed: MPH";
 }
+
+citySearchForm.addEventListener("submit", cityInputHandler);
+searchHistoryButtons.addEventListener("click", searchHistoryHandler);
