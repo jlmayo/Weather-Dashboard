@@ -11,10 +11,10 @@ var searchHistoryButtons=document.querySelector("#search-history-buttons");
 
 var cityInputHandler = function(event){
     event.preventDefault();
-    var city = cityInput.ariaValueMax.trim();
+    var city = cityInput.value.trim();
     if(city){
         cityWeather(city);
-        fiveDayForecast(city);
+        fiveDay(city);
         cities.unshift({city});
         cityInput.value = "";
     } else {
@@ -36,7 +36,9 @@ var cityWeather = function(city){
 
     fetch(apiURL)
     .then(function(response){
-        showWeather(data, city);
+        response.json().then(function(data){
+            showWeather(data, city);
+        });
     });
 };
 
@@ -47,24 +49,26 @@ var showWeather = function(weather, searchCity){
 
     var currentDate = document.createElement("span")
     currentDate.textContent=" (" + moment(weather.dt.value).format("dddd, MMM DD, YYYY, h:mm a") + ") ";
+    
     currentCity.appendChild(currentDate);
     
     
     var weatherImages = document.createElement("img");
     weatherImages.setAttribute("src", `https://openweathermap.org/img/wn/${weather.weather[0].icon}@2x.png`);
+    
     currentCity.appendChild(weatherImages);
 
     var temperature = document.createElement("p");
-    temperature.textContent = "Temperature: " + weather.main.temp + "ºF";
-    temperature.classList = "list-group-item";
+    temperature.textContent = "Temperature: " + weather.main.temp + " ºF";
+    temperature.classList = "list-group-item"
 
     var humidity = document.createElement("p");
     humidity.textContent = "Humidity: " + weather.main.humidity + " %";
-    humidity.classList = "list-group-item";
+    humidity.classList = "list-group-item"
 
     var windSpeed = document.createElement("p");
     windSpeed.textContent = "Wind Speed: " + weather.wind.speed + " MPH";
-    windSpeed.classList = "list-group-item";
+    windSpeed.classList = "list-group-item"
 
     currentWeather.appendChild(temperature);
 
@@ -97,24 +101,24 @@ var showFiveDay = function(weather){
       fiveDayData.classList = "card bg-primary text-light m-4";
 
       var fiveDayDate = document.createElement("h5")
-      fiveDayDate.textContent= moment.unix(dailyForecast.dt).format("ddd, MM/DD/YY")
+      fiveDayDate.textContent= moment.unix(dailyForecast.dt).format("ddd, MM/DD/YY");
       fiveDayDate.classList = "card-header text-center";
       
       fiveDayData.appendChild(fiveDayDate);
 
-      var weatherImages = document.createElement("img");
+      var weatherImages = document.createElement("img")
       weatherImages.classList = "card-body text-center";
       weatherImages.setAttribute("src", `https://openweathermap.org/img/wn/${dailyForecast.weather[0].icon}@2x.png`);
 
       fiveDayData.appendChild(weatherImages);
 
-      var fiveDayTemp = document.createElement("p")
+      var fiveDayTemp = document.createElement("p");
       fiveDayTemp.classList = "card-text text-center";
       fiveDayTemp.textContent = dailyForecast.main.temp + " ºF";
 
       fiveDayData.appendChild(fiveDayTemp);
 
-      var fiveDayHumidity = document.createElement("p")
+      var fiveDayHumidity = document.createElement("p");
       fiveDayHumidity.classList = "card-text text-center";
       fiveDayHumidity.textContent = "Humidity: " + dailyForecast.main.humidity + " %";
 
@@ -122,11 +126,11 @@ var showFiveDay = function(weather){
 
       var fiveDayWindSpeed = document.createElement("p")
       fiveDayWindSpeed.classList = "card-text text-center";
-      fiveDayWindSpeed.textContent = "Wind Speed: " + dailyForecast.wind.speed + "MPH";
+      fiveDayWindSpeed.textContent = "Wind Speed: " + dailyForecast.wind.speed + " MPH";
 
       fiveDayData.appendChild(fiveDayWindSpeed);
 
-      dailyForecast.appendChild(fiveDayData);
+      fiveDayForecast.appendChild(fiveDayData);
 
     }
 
@@ -136,11 +140,11 @@ var searchHistory = function(searchHistory){
 
     searchHistoryList = document.createElement("button");
     searchHistoryList.textContent = searchHistory;
-    searchHistoryList.classList = "btn btn-dar btn-lg btn-block p-2";
+    searchHistoryList.classList = "btn btn-dark btn-lg btn-block p-2";
     searchHistoryList.setAttribute("data-city", searchHistory);
     searchHistoryList.setAttribute("type", "submit");
 
-    searchHistoryButtons.prepend(searchHistory);
+    searchHistoryButtons.prepend(searchHistoryList);
 }
 
 
