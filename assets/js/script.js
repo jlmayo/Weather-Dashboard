@@ -77,6 +77,12 @@ var showWeather = function(weather, searchCity){
     var windSpeed = document.createElement("p");
     windSpeed.textContent = "Wind Speed: " + weather.wind.speed + " MPH";
     windSpeed.classList = "list-group-item";
+
+    currentWeather.appendChild(temperature);
+
+    currentWeather.appendChild(humidity);
+
+    currentWeather.appendChild(windSpeed);
 }
 
 var fiveDay = function(city){
@@ -95,24 +101,44 @@ var showFiveDay = function(weather){
     fiveDayForecast.textContent=""
     fiveDayForecastTitle.textContent = "Five-Day Forecast:";
 
-    var weatherImages = document.createElement("img");
-    weatherImages.classList = "card-body text-center";
-    weatherImages.setAttribute("src", `https://openweathermap.org/img/wn/${dailyForecast.weather[0].icon}@2x.png`);
-    
-    var fiveDayData = document.createElement("div");
-    fiveDayData.classList = "card bg-primary text-light m-4";
+    var forecast = weather.list;
+        for(var i=5; i < forecast.length; i=i+8){
+      var dailyForecast = forecast[i];
+        
+      var fiveDayData = document.createElement("div");
+      fiveDayData.classList = "card bg-primary text-light m-4";
 
-    var fiveDayTemp = document.createElement("p")
-    fiveDayTemp.classList = "card-text text-center";
-    fiveDayTemp.textContent = " ºF";
+      var fiveDayDate = document.createElement("h5")
+      fiveDayDate.textContent= moment.unix(dailyForecast.dt).format("ddd, MM/DD/YY")
+      fiveDayDate.classList = "card-header text-center";
+      
+      fiveDayData.appendChild(fiveDayDate);
 
-    var fiveDayHumidity = document.createElement("p")
-    fiveDayHumidity.classList = "card-text text-center";
-    fiveDayHumidity.textContent = " %";
+      var weatherImages = document.createElement("img");
+      weatherImages.classList = "card-body text-center";
+      weatherImages.setAttribute("src", `https://openweathermap.org/img/wn/${dailyForecast.weather[0].icon}@2x.png`);
 
-    var fiveDayWindSpeed = document.createElement("p")
-    fiveDayWindSpeed.classList = "card-text text-center";
-    fiveDayWindSpeed.textContent = "Wind Speed: MPH";
+
+      var fiveDayTemp = document.createElement("p")
+      fiveDayTemp.classList = "card-text text-center";
+      fiveDayTemp.textContent = dailyForecast.main.temp + " ºF";
+
+      fiveDayData.appendChild(fiveDayTemp);
+
+      var fiveDayHumidity = document.createElement("p")
+      fiveDayHumidity.classList = "card-text text-center";
+      fiveDayHumidity.textContent = "Humidity: " + dailyForecast.main.humidity + " %";
+
+      fiveDayData.appendChild(fiveDayHumidity);
+
+      var fiveDayWindSpeed = document.createElement("p")
+      fiveDayWindSpeed.classList = "card-text text-center";
+      fiveDayWindSpeed.textContent = "Wind Speed: " + dailyForecast.wind.speed + "MPH";
+
+      fiveDayData.appendChild(fiveDayWindSpeed);
+
+    }
+
 }
 
 citySearchForm.addEventListener("submit", cityInputHandler);
