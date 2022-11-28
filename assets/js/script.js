@@ -47,6 +47,17 @@ var searchHistory = function(searchHistory){
     searchHistoryButtons.prepend(searchHistory);
 }
 
+var cityWeather = function(city){
+    var apiKey = "7fd1431009ecf06b7da666445b0e111f"
+    var apiURL = `https://api.openweathermap.org/data/2.5/weather?q=${city}&units=imperial&appid=${apiKey}`
+
+    fetch(apiURL)
+    .then(function(response){
+        showWeather(data, city);
+    });
+};
+
+
 var showWeather = function(weather, searchCity){
     currentWeather.textContent = "";
     currentCity.textContent=searchCity;
@@ -63,6 +74,18 @@ var showWeather = function(weather, searchCity){
     windSpeed.textContent = "Wind Speed: ";
     windSpeed.classList = "list-group-item";
 }
+
+var fiveDay = function(city){
+    var apiKey = "7fd1431009ecf06b7da666445b0e111f"
+    var apiURL = `https://api.openweathermap.org/data/2.5/forecast?q=${city}&units=imperial&appid=${apiKey}`
+
+    fetch(apiURL)
+    .then(function(response){
+        response.json().then(function(data){
+            showFiveDay(data);
+        });
+    });
+};
 
 var showFiveDay = function(weather){
     fiveDayForecast.textContent=""
